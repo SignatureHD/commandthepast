@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sources & Methodology | Command The Past</title>
+<meta name="description" content="How Command The Past researches, verifies, and presents historical content — including source categories, confidence framework, and outstanding verification for Spion Kop." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .page-hero {
+    padding: 5rem 0 4rem;
+    border-bottom: 1px solid rgba(139,105,20,0.18);
+  }
+  .page-hero h1 { font-size: clamp(2.6rem, 5.5vw, 4.2rem); margin-bottom: 0.6rem; }
+
+  .methodology-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.4rem;
+    margin-top: 2rem;
+  }
+  @media (max-width: 760px) { .methodology-grid { grid-template-columns: 1fr; } }
+  .meth-card {
+    background: var(--paper);
+    border: 1px solid rgba(139,105,20,0.25);
+    padding: 1.8rem;
+  }
+  .meth-card .icon-num {
+    font-family: var(--serif);
+    font-size: 2.2rem;
+    color: var(--brass-deep);
+    font-weight: 500;
+    line-height: 1;
+  }
+  .meth-card h4 {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 500;
+    margin: 0.6rem 0 0.7rem;
+  }
+  .meth-card p { color: var(--muted); font-size: 0.94rem; line-height: 1.6; margin: 0; }
+
+  .source-list {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+  @media (max-width: 760px) { .source-list { grid-template-columns: 1fr; } }
+  .source-entry {
+    background: var(--paper);
+    border-left: 3px solid var(--brass);
+    padding: 1.2rem 1.4rem;
+  }
+  .source-entry h4 {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 500;
+    margin: 0 0 0.4rem;
+  }
+  .source-entry .tag {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--brass-deep);
+    margin-bottom: 0.3rem;
+    display: block;
+  }
+  .source-entry p { color: var(--muted); font-size: 0.92rem; line-height: 1.6; margin: 0; }
+
+  .confidence-table {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 1rem 2rem;
+    margin-top: 2rem;
+    align-items: start;
+  }
+  .confidence-table .row {
+    display: contents;
+  }
+  .confidence-table .label-cell {
+    padding-top: 0.3rem;
+  }
+  .confidence-table .desc-cell {
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid rgba(139,105,20,0.15);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .confidence-table .row:last-child .desc-cell { border-bottom: 0; }
+
+  .verification-table-wrap {
+    overflow-x: auto;
+    margin-top: 2rem;
+    border: 1px solid rgba(139,105,20,0.2);
+  }
+  .verification-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--paper);
+    font-size: 0.94rem;
+    min-width: 600px;
+  }
+  .verification-table th {
+    text-align: left;
+    background: var(--paper-deep);
+    padding: 1rem 1.2rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--brass-deep);
+    border-bottom: 1px solid rgba(139,105,20,0.3);
+  }
+  .verification-table td {
+    padding: 0.95rem 1.2rem;
+    border-bottom: 1px solid rgba(139,105,20,0.15);
+    vertical-align: top;
+    line-height: 1.55;
+  }
+  .verification-table tr:last-child td { border-bottom: 0; }
+  .verification-table .item-cell { font-family: var(--serif); font-style: italic; color: var(--ink); }
+
+  .policy-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .policy-rule {
+    background: var(--paper);
+    border-left: 3px solid var(--olive);
+    padding: 1.3rem 1.5rem;
+  }
+  .policy-rule .label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--olive);
+  }
+  .policy-rule p { margin: 0.4rem 0 0; font-size: 0.98rem; line-height: 1.65; }
+
+  .section-divider-deep { padding: 4rem 0; border-bottom: 1px solid rgba(139,105,20,0.18); }
+  .section-divider-deep:last-of-type { border-bottom: 0; }
+
+  .section-title {
+    display: flex;
+    align-items: baseline;
+    gap: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  .section-title .num {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brass-deep);
+  }
+  .section-title h2 {
+    margin: 0;
+    font-size: clamp(1.7rem, 2.8vw, 2.4rem);
+  }
+</style>
+</head>
+<body data-screen-label="07 Sources">
+
+<div id="site-header"></div>
+
+<!-- Hero -->
+<section class="page-hero">
+  <div class="container">
+    <div class="eyebrow">— Methodology</div>
+    <h1>Sources &amp; Methodology</h1>
+    <p class="lede" style="max-width:60ch;">How we research, verify, and present historical content.</p>
+  </div>
+</section>
+
+<!-- Section 1: Methodology statement -->
+<section class="section-divider-deep">
+  <div class="container">
+    <div class="section-title">
+      <span class="num">01 / Statement</span>
+      <h2>The three types of content</h2>
+    </div>
+    <p class="lede" style="max-width:65ch;">Command The Past uses a structured research process that separates three types of content. Each is presented and labelled differently to keep historical record and interactive interpretation cleanly distinct.</p>
+
+    <div class="methodology-grid">
+      <article class="meth-card">
+        <div class="icon-num">01</div>
+        <h4>Verified historical record</h4>
+        <p>Facts, dates, names, and outcomes that are confirmed by multiple cited primary and secondary sources. Shown without qualification.</p>
+      </article>
+      <article class="meth-card">
+        <div class="icon-num">02</div>
+        <h4>Probable or estimated</h4>
+        <p>Information that is consistent across most sources but where exact figures or details vary. Clearly labelled with confidence badges.</p>
+      </article>
+      <article class="meth-card">
+        <div class="icon-num">03</div>
+        <h4>Interactive interpretation</h4>
+        <p>Game scenarios and alternate decision models. These are educational tools — not historical claims. They are clearly framed as such throughout the site.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Section 2: Source categories -->
+<section class="section-divider-deep">
+  <div class="container">
+    <div class="section-title">
+      <span class="num">02 / Sources</span>
+      <h2>Primary research sources</h2>
+    </div>
+    <p class="lede" style="max-width:65ch;">Eleven sources form the verification backbone for the Spion Kop entry. The same standards apply to every future battle.</p>
+
+    <div class="source-list">
+      <article class="source-entry">
+        <span class="tag">— Reference · Open</span>
+        <h4>South African History Online (SAHO)</h4>
+        <p>Comprehensive South African historical reference. Used for context, narrative, and cross-reference.</p>
+      </article>
+      <article class="source-entry">
+        <span class="tag">— Archival · Official</span>
+        <h4>NARSSA / NAAIRS</h4>
+        <p>National Archives and Records Service of South Africa — the primary official verification route for South African military and archival records. Key source for casualty figures and order of battle.</p>
+      </article>
+      <article class="source-entry">
+        <span class="tag">— Peer-reviewed</span>
+        <h4>Military History Journal / SAMHS</h4>
+        <p>South African Military History Society. Peer-reviewed historical journal covering Anglo-Boer War and other South African conflicts in depth.</p>
+      </article>
+      <article class="source-entry">
+        <span class="tag">— Reference · Specialist</span>
+        <h4>AngloBoerWar.com</h4>
+        <p>Detailed reference for unit histories, personal accounts, and battle chronology. Cross-referenced against other sources.</p>
+      </article>
+      <article class="source-entry">
+        <span class="tag">— Secondary · Definitive</span>
+        <h4>Pakenham, Thomas — <em>The Boer War</em></h4>
+        <p>Weidenfeld &amp; Nicolson, 1979. The most comprehensive single-volume account of the war in English. Used as a primary secondary source throughout.</p>
+      </article>
+      <article class="source-entry">
+        <span class="tag">— Primary · Contemporary</span>
+        <h4>Churchill, Winston — <em>London to Ladysmith via Pretoria</em></h4>
+        <p>1900. Eyewitness account by Churchill as war correspondent. Valuable for atmosphere and command atmosphere. Used with awareness of Churchill's perspective and political interests.</p>
+      </article>
+      <article class="source-entry">
+        <span class="tag">— Primary · Contemporary</span>
+        <h4>Doyle, Arthur Conan — <em>The Great Boer War</em></h4>
+        <p>1900. Contemporary account by Doyle, who served as a medical volunteer. Useful for period detail.</p>
+      </article>
+      <article class="source-entry">
+        <span class="tag">— Cartographic</span>
+        <h4>Stanford Africana Historical Maps</h4>
+        <p>Historical map collection used for terrain and campaign geography research.</p>
+      </article>
+      <article class="source-entry">
+        <span class="tag">— Cartographic · Imperial</span>
+        <h4>Canadian War Museum — Boer War collections</h4>
+        <p>Map and archival holdings relevant to British and Imperial forces.</p>
+      </article>
+      <article class="source-entry">
+        <span class="tag">— Regional · Site-based</span>
+        <h4>KwaZulu-Natal Battlefields Route</h4>
+        <p>Regional historical resource for terrain, site visits, and local historical knowledge.</p>
+      </article>
+      <article class="source-entry">
+        <span class="tag">— Archival · Digital</span>
+        <h4>National Library of South Africa — Digital Collections</h4>
+        <p>Digital archive for period documents, maps, and photographs.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3: Confidence framework -->
+<section class="section-divider-deep" id="confidence">
+  <div class="container">
+    <div class="section-title">
+      <span class="num">03 / Framework</span>
+      <h2>How we classify historical certainty</h2>
+    </div>
+    <p class="lede" style="max-width:65ch;">Four labels, applied consistently across every battle page, narrative section, and data field.</p>
+
+    <div class="confidence-table">
+      <div class="row">
+        <div class="label-cell"><span class="confidence verified">verified</span></div>
+        <div class="desc-cell">Confirmed by multiple primary or peer-reviewed sources. Used with confidence.</div>
+      </div>
+      <div class="row">
+        <div class="label-cell"><span class="confidence probable">probable</span></div>
+        <div class="desc-cell">Consistent across most secondary sources; primary verification recommended before final publication.</div>
+      </div>
+      <div class="row">
+        <div class="label-cell"><span class="confidence contested">contested</span></div>
+        <div class="desc-cell">Sources disagree meaningfully. Figures or facts are presented as estimates with the disagreement noted.</div>
+      </div>
+      <div class="row">
+        <div class="label-cell"><span class="confidence unknown">unknown</span></div>
+        <div class="desc-cell">Insufficient reliable data. Presented as unknown rather than guessed.</div>
+      </div>
+    </div>
+
+    <p style="margin-top:2rem;padding:1.2rem 1.4rem;background:rgba(176,122,58,0.08);border-left:3px solid var(--c-contested);max-width:70ch;font-size:0.95rem;line-height:1.65;">
+      Casualty figures for Spion Kop fall primarily in the <strong>contested</strong> category. Different sources — British, Boer, and later historians — count differently and count different things. We present ranges and estimates, not false precision.
+    </p>
+  </div>
+</section>
+
+<!-- Section 4: Spion Kop verification status -->
+<section class="section-divider-deep">
+  <div class="container">
+    <div class="section-title">
+      <span class="num">04 / Outstanding</span>
+      <h2>Spion Kop — what still needs verification</h2>
+    </div>
+    <p class="lede" style="max-width:65ch;">A working register of every figure or claim on the Spion Kop page that has not yet been cross-checked against primary archival records.</p>
+
+    <div class="verification-table-wrap">
+      <table class="verification-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Current status</th>
+            <th>Recommended verification route</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="item-cell">British casualties — killed</td>
+            <td><span class="confidence contested">contested</span> · Estimated ~243</td>
+            <td>NAAIRS / War Office records</td>
+          </tr>
+          <tr>
+            <td class="item-cell">British casualties — wounded/captured</td>
+            <td><span class="confidence contested">contested</span> · Estimated ~1,250</td>
+            <td>NAAIRS / War Office records</td>
+          </tr>
+          <tr>
+            <td class="item-cell">Boer casualties</td>
+            <td><span class="confidence contested">contested</span> · Estimated ~68 killed</td>
+            <td>NAAIRS / Boer records via SAHO</td>
+          </tr>
+          <tr>
+            <td class="item-cell">British strength on summit</td>
+            <td><span class="confidence probable">probable</span> · Estimated ~1,700</td>
+            <td>NAAIRS regimental records</td>
+          </tr>
+          <tr>
+            <td class="item-cell">Boer strength in area</td>
+            <td><span class="confidence contested">contested</span> · Estimated ~4,000</td>
+            <td>SAHO / SAMHS</td>
+          </tr>
+          <tr>
+            <td class="item-cell">Exact timeline of events</td>
+            <td><span class="confidence probable">probable</span> · Some dispute over timing</td>
+            <td>Primary diaries, official despatches</td>
+          </tr>
+          <tr>
+            <td class="item-cell">Thorneycroft's orders</td>
+            <td><span class="confidence contested">contested</span> · Wording and authority disputed</td>
+            <td>National Archives UK / NAAIRS</td>
+          </tr>
+          <tr>
+            <td class="item-cell">Botha's intentions at midnight</td>
+            <td><span class="confidence unknown">unknown</span> · No reliable primary record</td>
+            <td>Boer memoirs / NAAIRS</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Section 5: Citation policy -->
+<section class="section-divider-deep">
+  <div class="container">
+    <div class="section-title">
+      <span class="num">05 / Policy</span>
+      <h2>What we do and do not do</h2>
+    </div>
+    <p class="lede" style="max-width:65ch;">Four standing rules that govern how the site presents historical material.</p>
+
+    <div class="policy-grid">
+      <div class="policy-rule">
+        <span class="label">— Rule 01 · Citation</span>
+        <p>We do not copy long passages from copyrighted sources. We do not reproduce primary source documents without rights clearance. <strong>We summarise and attribute.</strong></p>
+      </div>
+      <div class="policy-rule">
+        <span class="label">— Rule 02 · Interpretation</span>
+        <p>We do not invent or speculate beyond what sources support. Where we present alternate decision scenarios in the game, we frame them explicitly as educational interpretation — not historical fact.</p>
+      </div>
+      <div class="policy-rule">
+        <span class="label">— Rule 03 · Perspective</span>
+        <p>We do not present one belligerent's account as the objective truth. The Anglo-Boer War is remembered differently in different communities — British, Afrikaner, Black South African, and Indian South African. <strong>All perspectives deserve acknowledgement.</strong></p>
+      </div>
+      <div class="policy-rule">
+        <span class="label">— Rule 04 · Versioning</span>
+        <p>As verified data replaces estimated data, confidence badges and source notes will be updated. Version dates are included in the data model. The site is a living document.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="partials.js"></script>
+</body>
+</html>

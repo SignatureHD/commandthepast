@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About | Command The Past</title>
+<meta name="description" content="Command The Past is an educational interactive history platform. Learn about our approach to historical accuracy, the technology behind the platform, and what comes next." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .page-hero {
+    padding: 5rem 0 4rem;
+    border-bottom: 1px solid rgba(139,105,20,0.18);
+  }
+  .page-hero h1 {
+    font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+    margin-bottom: 0.6rem;
+  }
+  .page-hero .lede { max-width: 60ch; }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 0.7fr 2fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  @media (max-width: 880px) { .about-grid { grid-template-columns: 1fr; gap: 2rem; } }
+
+  .about-grid .num {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brass-deep);
+  }
+  .about-grid h2 {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 2.5vw, 2rem);
+    margin: 0.4rem 0 0;
+    text-transform: none;
+    letter-spacing: -0.005em;
+  }
+  .about-grid .heading-side { padding-top: 0.2rem; }
+  .about-grid p { font-size: 1.02rem; line-height: 1.75; }
+
+  section.about-section {
+    padding: 5rem 0;
+    border-bottom: 1px solid rgba(139,105,20,0.18);
+  }
+  section.about-section:last-of-type { border-bottom: 0; }
+
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.4rem;
+    margin: 2rem 0 1rem;
+  }
+  @media (max-width: 760px) { .pillars { grid-template-columns: 1fr; } }
+  .pillar {
+    background: var(--paper);
+    border: 1px solid rgba(139,105,20,0.25);
+    padding: 1.6rem;
+  }
+  .pillar h4 {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 500;
+    margin: 0 0 0.5rem;
+  }
+  .pillar p { color: var(--muted); font-size: 0.92rem; line-height: 1.6; margin: 0; }
+  .pillar .num {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--brass-deep);
+  }
+
+  .future-phases {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.4rem;
+  }
+  @media (max-width: 760px) { .future-phases { grid-template-columns: 1fr; } }
+  .phase {
+    background: var(--paper);
+    border: 1px solid rgba(139,105,20,0.25);
+    padding: 1.6rem;
+  }
+  .phase .tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brass-deep);
+  }
+  .phase h4 {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 500;
+    margin: 0.4rem 0 1rem;
+  }
+  .phase ul { list-style: none; padding: 0; margin: 0; }
+  .phase li {
+    padding: 0.55rem 0;
+    border-bottom: 1px dashed rgba(139,105,20,0.18);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    font-size: 0.95rem;
+  }
+  .phase li:last-child { border-bottom: 0; }
+  .phase li .when {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+  .phase.live { border-left: 4px solid var(--brass); }
+  .phase.live h4 { color: var(--brass-deep); }
+
+  .contact-block {
+    background: var(--paper);
+    outline: 1px solid rgba(139,105,20,0.15);
+    outline-offset: -8px;
+    border: 1px solid rgba(139,105,20,0.3);
+    padding: 2.4rem;
+    margin-top: 2rem;
+    text-align: center;
+  }
+  .contact-block .placeholder {
+    margin-top: 1.2rem;
+    padding: 0.9rem 1.1rem;
+    background: rgba(139,105,20,0.08);
+    border: 1px dashed rgba(139,105,20,0.3);
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .disclaimer-block {
+    background: var(--command);
+    color: rgba(244,239,227,0.82);
+    padding: 3.5rem 0;
+    text-align: center;
+  }
+  .disclaimer-block p {
+    max-width: 64ch;
+    margin: 0 auto;
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body data-screen-label="06 About">
+
+<div id="site-header"></div>
+
+<!-- Hero -->
+<section class="page-hero">
+  <div class="container">
+    <div class="eyebrow">— About</div>
+    <h1>About Command The Past</h1>
+    <p class="lede">An educational history project — built for curious readers, students, battlefield tourists, and history lovers.</p>
+  </div>
+</section>
+
+<!-- Section 1: What this is -->
+<section class="about-section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="heading-side">
+        <span class="num">01 / Scope</span>
+        <h2>What Command The Past is</h2>
+      </div>
+      <div>
+        <p>Command The Past is an interactive educational history platform. Each entry combines historical narrative, terrain analysis, commander profiles, and a browser-based strategy scenario — built to help people understand not just what happened in a battle, but why it happened, and what might have been different.</p>
+        <p>The platform is not a war game. It does not glorify casualties or trivialise the human cost of conflict. It is designed to make military history accessible, meaningful, and genuinely understandable — through terrain, command pressure, and the uncertainty that every commander faces.</p>
+        <p>It begins with the Anglo-Boer War because that conflict shaped modern South Africa in ways that are still visible today — in place names, in families, in the landscape of the Battlefields Route that runs through KwaZulu-Natal. <strong>But the archive will expand.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 2: Historical approach -->
+<section class="about-section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="heading-side">
+        <span class="num">02 / Approach</span>
+        <h2>Our approach to history</h2>
+      </div>
+      <div>
+        <p>Command The Past separates historical record from interactive interpretation.</p>
+        <p>Battle pages are built from cited historical sources. Where figures — casualties, troop strengths, timing — are uncertain or contested between sources, they are clearly labelled as estimates. A confidence framework (verified / probable / contested / unknown) is used throughout to distinguish what we know from what we believe.</p>
+
+        <div class="pillars">
+          <div class="pillar">
+            <span class="num">— 01</span>
+            <h4>Verified record</h4>
+            <p>Facts confirmed by multiple cited sources. Shown without qualification.</p>
+          </div>
+          <div class="pillar">
+            <span class="num">— 02</span>
+            <h4>Probable / estimated</h4>
+            <p>Consistent across most sources but exact figures vary. Always labelled.</p>
+          </div>
+          <div class="pillar">
+            <span class="num">— 03</span>
+            <h4>Interactive interpretation</h4>
+            <p>Game scenarios and alternate decisions. Educational tools, not historical claims.</p>
+          </div>
+        </div>
+
+        <p style="margin-top:2rem;">Interactive game scenarios use simplified decision models to help users experience terrain, timing, command pressure, and plausible alternatives. They are not historical simulations. They are educational tools. <em>The difference matters.</em></p>
+        <p>We do not invent certainty. We do not copy copyrighted source material. We do not present one side's narrative as the complete truth. The Anglo-Boer War was fought by people on both sides who believed in what they were doing — and who suffered for it. Both perspectives deserve honest treatment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3: How it was built -->
+<section class="about-section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="heading-side">
+        <span class="num">03 / Stack</span>
+        <h2>How it was built</h2>
+      </div>
+      <div>
+        <p>Command The Past was built using Next.js, TypeScript, and Tailwind CSS. The interactive game is a self-contained hex strategy scenario built with HTML5 Canvas — historically grounded in the actual terrain of Spion Kop, with fog of war, ranged artillery, morale routing, and an AI opponent modelled on Louis Botha's historical defence. It was built with Claude.</p>
+        <p>The site is designed to expand — each new battle follows the same data model and component architecture, making it straightforward to add new entries as research is completed and verified.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 4: Planned battles -->
+<section class="about-section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="heading-side">
+        <span class="num">04 / Roadmap</span>
+        <h2>What comes next</h2>
+      </div>
+      <div>
+        <p style="margin-bottom:2rem;">Command The Past begins with Spion Kop and the Anglo-Boer War. The archive will grow to include:</p>
+
+        <div class="future-phases">
+          <article class="phase live">
+            <div class="tag">— Phase 1 · Anglo-Boer War</div>
+            <h4>Boer War, 1899–1902</h4>
+            <ul>
+              <li><span>Spion Kop</span><span class="when">24 Jan 1900 · Live</span></li>
+              <li><span>Colenso</span><span class="when">15 Dec 1899 · Researching</span></li>
+              <li><span>Magersfontein</span><span class="when">11 Dec 1899 · Researching</span></li>
+              <li><span>Paardeberg</span><span class="when">27 Feb 1900 · Planned</span></li>
+            </ul>
+          </article>
+
+          <article class="phase">
+            <div class="tag">— Phase 2 · Anglo-Zulu War</div>
+            <h4>Zulu War, 1879</h4>
+            <ul>
+              <li><span>Isandlwana</span><span class="when">22 Jan 1879</span></li>
+              <li><span>Rorke's Drift</span><span class="when">22–23 Jan 1879</span></li>
+            </ul>
+          </article>
+
+          <article class="phase">
+            <div class="tag">— Phase 3 · Frontier era</div>
+            <h4>Trek &amp; Frontier</h4>
+            <ul>
+              <li><span>Blood River</span><span class="when">16 Dec 1838</span></li>
+            </ul>
+          </article>
+
+          <article class="phase">
+            <div class="tag">— Phase 4 · Global expansion</div>
+            <h4>Future volumes</h4>
+            <ul>
+              <li><span>WWI — SA campaigns</span><span class="when">1914–18</span></li>
+              <li><span>WWII — SA campaigns</span><span class="when">1939–45</span></li>
+              <li><span>Other global conflicts</span><span class="when">TBC</span></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 5: Contact -->
+<section class="about-section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="heading-side">
+        <span class="num">05 / Contribute</span>
+        <h2>Research &amp; verification</h2>
+      </div>
+      <div>
+        <p>If you are a historian, archivist, teacher, or researcher with knowledge of these battles — particularly access to primary sources through NAAIRS, SAHO, or the SAMHS Military History Journal — we welcome contact. The platform is designed to improve its historical accuracy over time as verified data replaces estimates.</p>
+        <div class="contact-block">
+          <h3 style="font-family:var(--serif);font-size:1.4rem;font-weight:500;margin:0 0 0.6rem;">Get in touch</h3>
+          <p class="muted" style="margin:0;">For corrections, citations, archival access, or partnership inquiries.</p>
+          <div class="placeholder">Contact form &amp; email — coming with launch</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Disclaimer -->
+<section class="disclaimer-block">
+  <div class="container">
+    <div class="eyebrow" style="color:var(--gold-light);opacity:0.8;">— Project disclaimer</div>
+    <p>
+      Command The Past is an educational history project. Interactive scenarios are designed to help users understand command decisions, terrain, uncertainty, and historical consequence. <strong style="color:var(--parchment);font-style:normal;">They are not intended to trivialise the human cost of war.</strong>
+    </p>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="partials.js"></script>
+</body>
+</html>

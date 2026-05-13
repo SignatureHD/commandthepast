@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Battle of Spion Kop | Command The Past</title>
+<meta name="description" content="Explore the Battle of Spion Kop — 24 January 1900. Study the terrain, understand the command decisions, and play an interactive hex strategy game based on the Anglo-Boer War." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Cormorant+Garamond:wght@400;500;600&family=EB+Garamond:wght@400;500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  /* Hero */
+  .battle-hero {
+    min-height: 88vh;
+    padding: 5rem 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  .battle-hero h1 {
+    font-size: clamp(3.2rem, 8vw, 6.4rem);
+    line-height: 0.96;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+  .battle-hero .subtitle {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+    color: rgba(244,239,227,0.78);
+    max-width: 36ch;
+    line-height: 1.4;
+    margin: 0 0 2rem;
+  }
+  .battle-hero .crumbs {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 2rem;
+    opacity: 0.7;
+  }
+  .battle-hero .hero-svg {
+    position: absolute;
+    right: -5%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 55%;
+    max-width: 720px;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  @media (max-width: 860px) {
+    .battle-hero .hero-svg { display: none; }
+  }
+  .battle-hero .chip-row { margin-bottom: 2rem; }
+
+  /* Quick facts */
+  .quickfacts {
+    background: var(--paper);
+    border: 1px solid rgba(139,105,20,0.3);
+    outline: 1px solid rgba(139,105,20,0.15);
+    outline-offset: -10px;
+    padding: 2.8rem;
+  }
+  .qf-cols {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 2.4rem;
+    align-items: stretch;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid rgba(139,105,20,0.18);
+    margin-bottom: 2rem;
+  }
+  .qf-cols .divider { background: rgba(139,105,20,0.2); }
+  .qf-side h3 { font-family: var(--serif); font-size: 1.4rem; margin: 0.4rem 0 1rem; text-transform: none; letter-spacing: 0; }
+  .qf-side .side-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+  .qf-side.british .side-label { color: var(--oxblood); }
+  .qf-side.boer .side-label { color: var(--olive); }
+  .qf-side dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.55rem 1.2rem; margin: 0; }
+  .qf-side dt {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 0.18rem;
+  }
+  .qf-side dd { margin: 0; font-size: 0.96rem; line-height: 1.5; }
+  .qf-side .result {
+    margin-top: 1.2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(139,105,20,0.15);
+    font-family: var(--serif);
+    font-style: italic;
+  }
+  .qf-side.british .result { color: var(--oxblood); }
+  .qf-side.boer .result { color: var(--olive); }
+  @media (max-width: 760px) {
+    .qf-cols { grid-template-columns: 1fr; }
+    .qf-cols .divider { height: 1px; width: 100%; }
+  }
+
+  .qf-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.4rem;
+    padding-top: 0.6rem;
+  }
+  .qf-strip > div {
+    padding: 0.5rem 0;
+  }
+  .qf-strip dt {
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+  .qf-strip dd { margin: 0; font-family: var(--serif); font-size: 1.05rem; }
+  @media (max-width: 760px) { .qf-strip { grid-template-columns: 1fr 1fr; } }
+
+  .qf-note {
+    margin-top: 2rem;
+    padding: 1rem 1.2rem;
+    background: rgba(176,122,58,0.08);
+    border-left: 3px solid var(--c-contested);
+    font-size: 0.9rem;
+    color: var(--muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  /* Terrain map */
+  .terrain-map {
+    background: var(--paper);
+    border: 1px solid rgba(139,105,20,0.3);
+    padding: 1.5rem;
+    aspect-ratio: 16/10;
+    min-height: 380px;
+    position: relative;
+  }
+  .terrain-map svg { width: 100%; height: 100%; display: block; }
+  .terrain-legend {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .terrain-legend .swatch {
+    display: inline-block;
+    width: 14px; height: 10px;
+    border: 1px solid rgba(0,0,0,0.2);
+    vertical-align: middle;
+    margin-right: 0.4rem;
+  }
+
+  /* Episode timeline */
+  .episodes {
+    position: relative;
+    padding-left: 3rem;
+  }
+  .episodes::before {
+    content: '';
+    position: absolute;
+    left: 18px; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--brass), var(--khaki), transparent);
+    opacity: 0.5;
+  }
+  .episode {
+    position: relative;
+    padding: 0 0 2.2rem 0;
+  }
+  .episode .num {
+    position: absolute;
+    left: -3rem;
+    top: 0.2rem;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--parchment);
+    border: 2px solid var(--brass);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    color: var(--brass-deep);
+    font-weight: 500;
+  }
+  .episode h4 {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+  }
+  .episode .time {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--brass-deep);
+    margin-bottom: 0.5rem;
+  }
+  .episode p { color: var(--ink); line-height: 1.65; }
+
+  /* Turning points */
+  .tp-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.4rem;
+  }
+  @media (max-width: 980px) { .tp-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) { .tp-grid { grid-template-columns: 1fr; } }
+
+  .tp-card {
+    background: var(--paper);
+    border: 1px solid rgba(139,105,20,0.25);
+    padding: 1.6rem;
+    position: relative;
+  }
+  .tp-card .tp-num {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--brass-deep);
+  }
+  .tp-card h4 {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 500;
+    margin: 0.4rem 0 0.6rem;
+  }
+  .tp-card p { font-size: 0.94rem; line-height: 1.55; color: var(--ink); margin: 0 0 1rem; }
+  .tp-card .game-impact {
+    background: rgba(31,36,31,0.04);
+    border-left: 2px solid var(--olive);
+    padding: 0.65rem 0.85rem;
+    font-size: 0.84rem;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .tp-card .badge-row { margin-top: 1rem; }
+
+  /* Commanders */
+  .commanders {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  @media (max-width: 760px) { .commanders { grid-template-columns: 1fr; } }
+  .commander {
+    background: var(--paper);
+    border: 1px solid rgba(139,105,20,0.25);
+    padding: 1.8rem;
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 1.2rem;
+    align-items: start;
+  }
+  .commander .portrait {
+    width: 90px; height: 110px;
+    background: var(--paper-deep);
+    border: 1px solid rgba(139,105,20,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    color: var(--muted);
+    position: relative;
+  }
+  .commander .portrait::after {
+    content: 'PORTRAIT';
+    position: absolute;
+    bottom: 4px;
+    left: 0; right: 0;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.16em;
+    color: var(--muted);
+    opacity: 0.7;
+  }
+  .commander.british { border-top: 3px solid var(--oxblood); }
+  .commander.boer { border-top: 3px solid var(--olive); }
+  .commander h4 {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 500;
+    margin: 0 0 0.2rem;
+  }
+  .commander .role {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brass-deep);
+    margin-bottom: 0.7rem;
+  }
+  .commander p { font-size: 0.92rem; line-height: 1.55; margin: 0 0 0.7rem; }
+
+  /* Forces & casualties */
+  .forces {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  @media (max-width: 760px) { .forces { grid-template-columns: 1fr; } }
+  .force-card {
+    background: var(--paper);
+    border: 1px solid rgba(139,105,20,0.25);
+    padding: 2rem;
+  }
+  .force-card.british { border-top: 4px solid var(--oxblood); }
+  .force-card.boer { border-top: 4px solid var(--olive); }
+  .force-card h4 {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 500;
+    margin: 0 0 1.4rem;
+  }
+  .force-stat {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-bottom: 1.2rem;
+  }
+  .force-stat dt {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+  .force-stat .big { font-family: var(--serif); font-size: 2.2rem; line-height: 1; color: var(--ink); }
+  .force-stat .units { font-size: 0.88rem; color: var(--muted); line-height: 1.55; }
+  .force-stat .casualty-line {
+    display: flex;
+    gap: 1.2rem;
+    margin-top: 0.4rem;
+  }
+  .force-stat .casualty-line > div { font-size: 0.88rem; }
+  .force-stat .casualty-line .label {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* Alternate decisions */
+  .alts {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+  }
+  @media (max-width: 1100px) { .alts { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px) { .alts { grid-template-columns: 1fr; } }
+  .alt-card {
+    background: var(--paper);
+    border: 1px solid rgba(139,105,20,0.25);
+    padding: 1.4rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .alt-card .num {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--brass-deep);
+  }
+  .alt-card h5 {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    margin: 0.4rem 0 0.6rem;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .alt-card p { font-size: 0.86rem; line-height: 1.5; color: var(--muted); margin: 0; flex: 1; }
+  .alt-card .plaus {
+    margin-top: 1rem;
+    padding-top: 0.7rem;
+    border-top: 1px solid rgba(139,105,20,0.15);
+    font-size: 0.74rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* Three men */
+  .threemen {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  @media (max-width: 880px) { .threemen { grid-template-columns: 1fr; } }
+  .person {
+    background: var(--paper);
+    border: 1px solid rgba(139,105,20,0.25);
+    padding: 1.8rem;
+    text-align: left;
+  }
+  .person .portrait {
+    width: 110px; height: 130px;
+    background: var(--paper-deep);
+    border: 1px solid rgba(139,105,20,0.3);
+    margin-bottom: 1rem;
+  }
+  .person h4 {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 500;
+    margin: 0;
+  }
+  .person .role {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brass-deep);
+    margin: 0.3rem 0 1rem;
+  }
+
+  /* Sources panel */
+  .sources-panel {
+    background: var(--paper-deep);
+    border-left: 3px solid var(--brass);
+    padding: 2rem 2.4rem;
+  }
+  .sources-panel h3 {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 500;
+    margin: 0 0 1rem;
+  }
+  .sources-panel ul {
+    columns: 2;
+    column-gap: 2rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+  .sources-panel li { margin-bottom: 0.35rem; break-inside: avoid; }
+  .sources-panel li::before { content: '· '; color: var(--brass-deep); }
+  @media (max-width: 640px) { .sources-panel ul { columns: 1; } }
+
+  /* Play CTA */
+  .play-cta {
+    text-align: center;
+    padding: 6rem 0;
+  }
+  .play-cta h2 { max-width: 24ch; margin: 0 auto 1.4rem; }
+  .play-cta .lede { max-width: 56ch; margin: 0 auto 2.2rem; }
+
+  /* Method / journey section */
+  .method-section { padding: 5rem 0 4rem; }
+  .method-section .method-head {
+    text-align: center;
+    max-width: 58ch;
+    margin: 0 auto 4rem;
+  }
+  .method-section h2 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    font-weight: 500;
+    margin: 0 0 1rem;
+  }
+  .method-section .method-lede {
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--muted);
+    max-width: 48ch;
+    margin: 0 auto;
+  }
+  .method-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.4rem 2rem;
+    align-items: stretch;
+  }
+  @media (max-width: 1000px) { .method-grid { grid-template-columns: repeat(2, 1fr); gap: 3rem 2rem; } }
+  @media (max-width: 560px)  { .method-grid { grid-template-columns: 1fr; gap: 3rem; } }
+  .method-step {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .method-step .step-tag {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.4rem;
+  }
+  .method-step .step-tag .step-num { color: var(--brass-deep); }
+  .method-step .icon-frame {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.8rem;
+    border-top: 1px solid rgba(139,105,20,0.18);
+    padding-top: 2.2rem;
+  }
+  .method-step .icon-frame svg {
+    width: 72%;
+    height: 72%;
+    color: var(--ink);
+  }
+  .method-step h4 {
+    font-family: var(--mono);
+    font-size: 0.86rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin: 0 0 0.6rem;
+    font-weight: 600;
+  }
+  .method-step p {
+    font-size: 0.96rem;
+    line-height: 1.55;
+    color: var(--muted);
+    margin: 0;
+  }
+  .method-step.is-active h4 { color: var(--brass-deep); }
+  .method-step.is-active .step-tag .step-num { color: var(--oxblood); }
+</style>
+</head>
+<body data-screen-label="03 Spion Kop Battle Landing">
+
+<div id="site-header"></div>
+
+<!-- Hero -->
+<section class="command battle-hero" data-screen-label="03a Hero">
+  <div class="contour-bg"></div>
+  <svg class="hero-svg" viewBox="0 0 720 720" aria-hidden="true">
+    <!-- Topographic ridge silhouette -->
+    <g fill="none" stroke="#c8b97a" stroke-width="0.6" opacity="0.55">
+      <path d="M0,500 Q120,460 240,470 T480,440 Q600,420 720,440"/>
+      <path d="M0,470 Q140,430 260,445 T500,415 Q620,395 720,415"/>
+      <path d="M0,440 Q160,400 280,420 T520,390 Q630,370 720,388"/>
+      <path d="M30,415 Q180,375 300,395 T540,365 Q640,348 720,365"/>
+      <path d="M60,390 Q200,355 320,372 T560,342 Q650,325 720,340"/>
+      <path d="M100,365 Q220,335 340,352 T570,320 Q655,305 720,318"/>
+      <path d="M140,342 Q240,318 360,332 T580,300 Q660,285 720,298"/>
+      <path d="M180,322 Q260,302 380,315 T590,282 Q665,268 720,280"/>
+      <path d="M220,305 Q280,290 400,300 T600,268 Q665,255 720,265"/>
+      <path d="M260,290 Q300,280 410,288 T605,255 Q665,245 720,252"/>
+    </g>
+    <circle cx="412" cy="282" r="5" fill="#b08d57"/>
+    <text x="425" y="280" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="2" fill="#c8b97a">SPION KOP · 430m</text>
+    <!-- Surrounding peaks markers -->
+    <g fill="#c8b97a" opacity="0.6">
+      <circle cx="500" cy="255" r="2"/>
+      <text x="508" y="253" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="1.5">ALOE KNOLL</text>
+      <circle cx="465" cy="245" r="2"/>
+      <text x="473" y="243" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="1.5">CONICAL</text>
+      <circle cx="555" cy="270" r="2"/>
+      <text x="563" y="268" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="1.5">TWIN PEAKS</text>
+    </g>
+  </svg>
+
+  <div class="container" style="position:relative;z-index:2;">
+    <div class="crumbs">Home / Battles / Spion Kop</div>
+    <h1 class="fade-up">Spion Kop</h1>
+    <p class="subtitle fade-up d1">The hill that became a battlefield of confusion, courage, and costly command decisions.</p>
+    <div class="chip-row fade-up d2">
+      <span class="stamp command-stamp">23–24 January 1900</span>
+      <span class="stamp command-stamp">Natal, South Africa</span>
+      <span class="stamp command-stamp">Anglo-Boer War</span>
+      <span class="stamp command-stamp">Relief of Ladysmith</span>
+      <span class="stamp command-stamp" style="color:#d4956a;border-color:rgba(212,149,106,0.6);">Boer Victory</span>
+    </div>
+    <div class="btn-row fade-up d3">
+      <a href="spion-kop-learn.html" class="btn btn-primary btn-lg">Read the Full History</a>
+      <a href="spion-kop-play.html" class="btn btn-secondary btn-lg">Take Command →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Method / Journey -->
+<section class="method-section" data-reveal data-screen-label="03b Method">
+  <div class="container">
+    <div class="method-head">
+      <h2>Read, study, command, compare.</h2>
+      <p class="method-lede">First, read the battle. Then study the ground. When you are ready, take command and test whether different choices could have changed the result.</p>
+    </div>
+
+    <div class="method-grid">
+      <!-- 01 Read -->
+      <div class="method-step is-active">
+        <div class="step-tag"><span class="step-num">01</span> / Read</div>
+        <div class="icon-frame">
+          <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="miter" stroke-linecap="butt" aria-hidden="true">
+            <!-- Open book / folded map -->
+            <path d="M10 22 L60 38 L110 22 L110 98 L60 82 L10 98 Z"/>
+            <line x1="60" y1="38" x2="60" y2="82"/>
+            <line x1="24" y1="44" x2="48" y2="50" stroke-width="7"/>
+            <line x1="24" y1="60" x2="48" y2="66" stroke-width="7"/>
+            <line x1="72" y1="50" x2="96" y2="44" stroke-width="7"/>
+            <line x1="72" y1="66" x2="96" y2="60" stroke-width="7"/>
+          </svg>
+        </div>
+        <h4>Read the battle</h4>
+        <p>The narrative — commanders, hours, terrain, and the decisions that shaped the outcome.</p>
+      </div>
+
+      <!-- 02 Study -->
+      <div class="method-step">
+        <div class="step-tag"><span class="step-num">02</span> / Study</div>
+        <div class="icon-frame">
+          <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="miter" stroke-linecap="butt" aria-hidden="true">
+            <!-- Contour lines / topographic study -->
+            <rect x="10" y="14" width="100" height="92"/>
+            <path d="M22 92 Q42 76 60 82 Q82 88 98 72" stroke-width="5"/>
+            <path d="M22 74 Q40 56 60 62 Q82 68 98 52" stroke-width="5"/>
+            <path d="M30 56 Q44 42 60 46 Q78 50 92 36" stroke-width="5"/>
+            <circle cx="60" cy="60" r="6" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+        <h4>Study the ground</h4>
+        <p>Walk the terrain on the map. See the heights, the river, the lines of fire.</p>
+      </div>
+
+      <!-- 03 Command -->
+      <div class="method-step">
+        <div class="step-tag"><span class="step-num">03</span> / Command</div>
+        <div class="icon-frame">
+          <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="miter" stroke-linecap="butt" aria-hidden="true">
+            <!-- Flag / standard on hex -->
+            <path d="M30 26 L60 10 L90 26 L90 60 L60 76 L30 60 Z"/>
+            <line x1="48" y1="46" x2="48" y2="108"/>
+            <path d="M48 46 L84 46 L74 56 L84 66 L48 66 Z" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+        <h4>Take command</h4>
+        <p>Step into the role of Warren or Botha. Move your units. Make the call the historical commander couldn't.</p>
+      </div>
+
+      <!-- 04 Compare -->
+      <div class="method-step">
+        <div class="step-tag"><span class="step-num">04</span> / Compare</div>
+        <div class="icon-frame">
+          <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="miter" stroke-linecap="butt" aria-hidden="true">
+            <!-- Two columns / comparison -->
+            <rect x="14" y="22" width="40" height="76"/>
+            <rect x="66" y="22" width="40" height="76"/>
+            <line x1="22" y1="40" x2="46" y2="40" stroke-width="7"/>
+            <line x1="22" y1="58" x2="46" y2="58" stroke-width="7"/>
+            <line x1="22" y1="76" x2="38" y2="76" stroke-width="7"/>
+            <line x1="74" y1="40" x2="98" y2="40" stroke-width="7"/>
+            <line x1="74" y1="58" x2="90" y2="58" stroke-width="7"/>
+            <line x1="74" y1="76" x2="98" y2="76" stroke-width="7"/>
+          </svg>
+        </div>
+        <h4>Compare outcomes</h4>
+        <p>Set your result beside the historical record. See where your decisions diverged — and what it cost.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- Quick Facts -->
+<section data-reveal>
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">— Section 01 · Quick Facts</div>
+      <h2>The battle at a glance</h2>
+    </div>
+
+    <div class="quickfacts">
+      <div class="qf-cols">
+        <div class="qf-side british">
+          <span class="side-label">— British Empire</span>
+          <h3>The Natal Field Force</h3>
+          <dl>
+            <dt>Commander</dt><dd>Gen. Sir Redvers Buller (overall)<br/><span class="muted">Gen. Sir Charles Warren (operational)</span></dd>
+            <dt>Forces</dt><dd>~1,700 men on the summit <span class="confidence probable">probable</span></dd>
+            <dt>Objective</dt><dd>Seize and hold Spion Kop summit; break through to relieve Ladysmith</dd>
+          </dl>
+          <p class="result">Defeated. Withdrew at midnight.</p>
+        </div>
+        <div class="divider"></div>
+        <div class="qf-side boer">
+          <span class="side-label">— Boer Republics</span>
+          <h3>The Tugela Heights Defence</h3>
+          <dl>
+            <dt>Commander</dt><dd>Commandant-Gen. Louis Botha</dd>
+            <dt>Forces</dt><dd>~4,000 burghers <span class="confidence probable">probable</span></dd>
+            <dt>Objective</dt><dd>Defend the Tugela Heights; prevent British breakthrough to Ladysmith</dd>
+          </dl>
+          <p class="result">Victorious. Held the heights — barely.</p>
+        </div>
+      </div>
+
+      <dl class="qf-strip">
+        <div>
+          <dt>Dates</dt>
+          <dd>23–24 January 1900</dd>
+        </div>
+        <div>
+          <dt>Location</dt>
+          <dd>Tugela Heights, near Ladysmith</dd>
+        </div>
+        <div>
+          <dt>Active fighting</dt>
+          <dd>~18 hours</dd>
+        </div>
+        <div>
+          <dt>Outcome</dt>
+          <dd>Boer victory · British withdrawal</dd>
+        </div>
+      </dl>
+
+      <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(139,105,20,0.18);">
+        <div class="muted" style="font-family:var(--mono);font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:0.7rem;">Notable witnesses</div>
+        <div style="display:flex;gap:1.5rem;flex-wrap:wrap;font-family:var(--serif);font-style:italic;font-size:1rem;">
+          <span>Winston Churchill <span class="muted" style="font-style:normal;font-size:0.85rem;">— war correspondent</span></span>
+          <span>Mahatma Gandhi <span class="muted" style="font-style:normal;font-size:0.85rem;">— Indian Stretcher Bearer Corps</span></span>
+          <span>Louis Botha <span class="muted" style="font-style:normal;font-size:0.85rem;">— Boer commander</span></span>
+        </div>
+      </div>
+
+      <div class="qf-note">
+        <span class="confidence contested" style="flex-shrink:0;">contested</span>
+        <span>Strength and casualty figures vary by source and should be verified against NAAIRS/SAHO records before final publication.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- Terrain / Map -->
+<section data-reveal>
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">— Section 02 · Terrain</div>
+      <h2>The ground</h2>
+      <p class="lede">Terrain decided this battle before a single shot was fired. Spion Kop rises steeply from the Tugela River valley — a summit that appeared to offer a commanding position, but concealed a fatal trap.</p>
+    </div>
+
+    <div class="terrain-map">
+      <svg viewBox="0 0 800 500" role="img" aria-labelledby="terrainTitle">
+        <title id="terrainTitle">Tactical map of Spion Kop and surrounding heights</title>
+
+        <defs>
+          <!-- Paper texture -->
+          <pattern id="paperHatch" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="8" stroke="#8b6914" stroke-width="0.2" opacity="0.18"/>
+          </pattern>
+          <!-- River pattern -->
+          <linearGradient id="river" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#6f8a9a"/>
+            <stop offset="100%" stop-color="#4d6878"/>
+          </linearGradient>
+          <radialGradient id="summitGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#3e2a1c" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#3e2a1c" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Background veld -->
+        <rect width="800" height="500" fill="#e9e2d2"/>
+        <rect width="800" height="500" fill="url(#paperHatch)"/>
+
+        <!-- Tugela River across south -->
+        <path d="M0,430 Q150,415 280,425 Q420,440 560,420 Q690,408 800,418 L800,460 Q700,460 580,460 Q420,475 280,460 Q150,452 0,465 Z"
+              fill="url(#river)" opacity="0.85"/>
+        <text x="60" y="448" font-family="Playfair Display" font-style="italic" font-size="14" fill="#f4efe3">Tugela River</text>
+
+        <!-- Trichard's Drift crossing -->
+        <g transform="translate(140,425)">
+          <path d="M-12,0 L-6,-12 L0,0 L6,-12 L12,0" stroke="#2b2a28" stroke-width="1" fill="none"/>
+          <text x="-30" y="22" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.5" fill="#2b2a28">TRICHARD'S DRIFT</text>
+        </g>
+
+        <!-- Contour rings -->
+        <g fill="none" stroke="#8b6914" stroke-width="0.5" opacity="0.45">
+          <!-- Spion Kop contours -->
+          <ellipse cx="380" cy="270" rx="180" ry="110"/>
+          <ellipse cx="380" cy="270" rx="150" ry="90"/>
+          <ellipse cx="380" cy="270" rx="120" ry="72"/>
+          <ellipse cx="380" cy="270" rx="92" ry="56"/>
+          <ellipse cx="380" cy="270" rx="65" ry="40"/>
+          <ellipse cx="380" cy="270" rx="40" ry="24"/>
+        </g>
+
+        <!-- Spion Kop summit -->
+        <ellipse cx="380" cy="270" rx="35" ry="20" fill="#6b4a2a" opacity="0.55"/>
+        <ellipse cx="380" cy="270" rx="22" ry="13" fill="#3e2a1c" opacity="0.6"/>
+
+        <!-- Aloe Knoll -->
+        <g>
+          <circle cx="530" cy="225" r="35" fill="none" stroke="#8b6914" stroke-width="0.5" opacity="0.45"/>
+          <circle cx="530" cy="225" r="22" fill="none" stroke="#8b6914" stroke-width="0.5" opacity="0.45"/>
+          <circle cx="530" cy="225" r="12" fill="#6b4a2a" opacity="0.55"/>
+          <circle cx="530" cy="225" r="6" fill="#3e2a1c" opacity="0.7"/>
+        </g>
+
+        <!-- Conical Hill -->
+        <g>
+          <circle cx="430" cy="120" r="42" fill="none" stroke="#8b6914" stroke-width="0.5" opacity="0.45"/>
+          <circle cx="430" cy="120" r="28" fill="none" stroke="#8b6914" stroke-width="0.5" opacity="0.45"/>
+          <circle cx="430" cy="120" r="16" fill="#6b4a2a" opacity="0.55"/>
+          <circle cx="430" cy="120" r="8" fill="#3e2a1c" opacity="0.7"/>
+        </g>
+
+        <!-- Twin Peaks -->
+        <g>
+          <ellipse cx="640" cy="270" rx="55" ry="35" fill="none" stroke="#8b6914" stroke-width="0.5" opacity="0.45"/>
+          <ellipse cx="640" cy="270" rx="38" ry="22" fill="none" stroke="#8b6914" stroke-width="0.5" opacity="0.45"/>
+          <circle cx="625" cy="265" r="9" fill="#3e2a1c" opacity="0.65"/>
+          <circle cx="655" cy="275" r="9" fill="#3e2a1c" opacity="0.65"/>
+        </g>
+
+        <!-- Green Hill / Tabanyama -->
+        <g>
+          <ellipse cx="200" cy="180" rx="80" ry="45" fill="none" stroke="#8b6914" stroke-width="0.5" opacity="0.45"/>
+          <ellipse cx="200" cy="180" rx="55" ry="30" fill="#5e6756" opacity="0.35"/>
+          <ellipse cx="200" cy="180" rx="30" ry="18" fill="#5e6756" opacity="0.5"/>
+        </g>
+
+        <!-- British advance arrow -->
+        <g stroke="#8b1a1a" stroke-width="2" fill="none" opacity="0.85">
+          <path d="M140,420 Q180,400 240,360 Q300,320 360,290" marker-end="url(#redArrow)"/>
+        </g>
+        <defs>
+          <marker id="redArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 Z" fill="#8b1a1a"/>
+          </marker>
+          <marker id="greenArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+            <path d="M0,0 L10,5 L0,10 Z" fill="#1a4a1a"/>
+          </marker>
+        </defs>
+
+        <!-- Boer fire arrows converging on summit -->
+        <g stroke="#1a4a1a" stroke-width="1.4" fill="none" opacity="0.75" stroke-dasharray="3 3">
+          <path d="M515,225 Q455,250 400,265" marker-end="url(#greenArrow)"/>
+          <path d="M430,135 Q400,200 388,255" marker-end="url(#greenArrow)"/>
+          <path d="M610,270 Q500,275 415,272" marker-end="url(#greenArrow)"/>
+        </g>
+
+        <!-- Labels -->
+        <g font-family="Playfair Display" font-size="14" fill="#2b2a28">
+          <text x="378" y="270" text-anchor="middle" font-weight="500">Spion Kop</text>
+          <text x="378" y="284" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="1.5" fill="#6e3b36">430m · CONTESTED</text>
+        </g>
+        <g font-family="Inter, sans-serif" font-size="11" fill="#2b2a28">
+          <text x="530" y="218" text-anchor="middle">Aloe Knoll</text>
+          <text x="530" y="232" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="1" fill="#1a4a1a">BOER ARTILLERY</text>
+
+          <text x="430" y="116" text-anchor="middle">Conical Hill</text>
+          <text x="430" y="130" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="1" fill="#1a4a1a">LONG TOM · 4 RANGE</text>
+
+          <text x="640" y="266" text-anchor="middle">Twin Peaks</text>
+          <text x="640" y="280" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="1" fill="#1a4a1a">BOER ARTILLERY</text>
+
+          <text x="200" y="180" text-anchor="middle">Green Hill / Tabanyama</text>
+          <text x="200" y="194" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="1" fill="#1a4a1a">BOER POSITION</text>
+        </g>
+
+        <!-- British advance label -->
+        <text x="195" y="390" font-family="Inter, sans-serif" font-size="11" fill="#8b1a1a" font-style="italic">British night climb</text>
+
+        <!-- Compass rose -->
+        <g transform="translate(740,60)" fill="none" stroke="#5e6756" opacity="0.7">
+          <circle r="22" stroke-width="0.6"/>
+          <line x1="0" y1="-22" x2="0" y2="-10" stroke-width="1"/>
+          <line x1="0" y1="10" x2="0" y2="22" stroke-width="0.5"/>
+          <line x1="-22" y1="0" x2="-10" y2="0" stroke-width="0.5"/>
+          <line x1="10" y1="0" x2="22" y2="0" stroke-width="0.5"/>
+          <text x="-4" y="-26" font-family="JetBrains Mono, monospace" font-size="9" fill="#5e6756" stroke="none">N</text>
+          <circle r="2" fill="#5e6756"/>
+        </g>
+
+        <!-- Scale -->
+        <g transform="translate(40,470)" font-family="JetBrains Mono, monospace" font-size="8" fill="#2b2a28">
+          <line x1="0" y1="0" x2="100" y2="0" stroke="#2b2a28" stroke-width="1"/>
+          <line x1="0" y1="-3" x2="0" y2="3" stroke="#2b2a28"/>
+          <line x1="50" y1="-3" x2="50" y2="3" stroke="#2b2a28"/>
+          <line x1="100" y1="-3" x2="100" y2="3" stroke="#2b2a28"/>
+          <text x="0" y="14">0</text><text x="42" y="14">1</text><text x="92" y="14">2 km</text>
+        </g>
+
+        <!-- TODO comment -->
+        <text x="780" y="490" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="7" fill="#8a8680" opacity="0.7">/* TODO: MapLibre integration · CDNGI source */</text>
+      </svg>
+    </div>
+
+    <div class="terrain-legend">
+      <span><span class="swatch" style="background:#e9e2d2"></span> Open veld</span>
+      <span><span class="swatch" style="background:#a89a72;opacity:0.5"></span> Steep slopes</span>
+      <span><span class="swatch" style="background:#6b4a2a;opacity:0.6"></span> Summit / kopje</span>
+      <span><span class="swatch" style="background:#6f8a9a"></span> River</span>
+      <span><span class="swatch" style="background:#8b1a1a"></span> British advance</span>
+      <span><span class="swatch" style="background:#1a4a1a"></span> Boer fire</span>
+    </div>
+
+    <p style="margin-top:2rem;max-width:65ch;color:var(--ink);">
+      The summit of Spion Kop was not the commanding position it appeared from below. At 430 metres above the Tugela, it was ringed by higher ground on three sides — Aloe Knoll to the northeast, Conical Hill to the north, and Twin Peaks to the east. The British, climbing in darkness and mist, did not know this. When the fog lifted at dawn, they found themselves in shallow trenches overlooked and outgunned from every direction.
+    </p>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- Historical Context -->
+<section data-reveal>
+  <div class="container container-narrow">
+    <div class="eyebrow">— Section 03 · Context</div>
+    <h2>Why this battle mattered</h2>
+    <p style="font-size:1.08rem;line-height:1.75;margin-top:1.6rem;">
+      By January 1900, the siege of Ladysmith had lasted three months. Some 12,000 British troops were trapped inside the town, short of supplies and under constant Boer pressure. General Sir Redvers Buller had already failed once at the Battle of Colenso in December 1899 — part of the catastrophic 'Black Week' that shook British confidence across the Empire. Spion Kop was his second attempt to break through the Tugela Heights and relieve the garrison. The political pressure was enormous. <em>The hill looked like the key to everything.</em>
+    </p>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- What Happened -->
+<section data-reveal>
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">— Section 04 · What Happened</div>
+      <h2>The eighteen hours</h2>
+      <p class="lede">Six episodes that decided the hill — from the silent climb in the mist to the empty trenches at dawn on the 25th.</p>
+    </div>
+
+    <div class="episodes">
+      <div class="episode">
+        <div class="num">1</div>
+        <div class="time">23 Jan · 21:00 — 24 Jan · 03:00</div>
+        <h4>The night advance</h4>
+        <p>On the night of 23 January 1900, Major General Edward Woodgate led roughly 1,700 men in a silent climb up the slopes of Spion Kop. Moving through thick mist and drizzle, they overwhelmed the small Boer picket on the summit and began to entrench. By 3am, Woodgate signalled that the hill was taken.</p>
+      </div>
+      <div class="episode">
+        <div class="num">2</div>
+        <div class="time">24 Jan · Dawn</div>
+        <h4>The uncertain summit</h4>
+        <p>When dawn broke on 24 January, the mist began to lift — and the British discovered the summit they occupied was not the true crest. They had entrenched in a shallow, exposed basin, surrounded on three sides by higher Boer positions they had not seen in the darkness. The trenches were too shallow to provide real cover. The ground was too rocky for rapid improvement.</p>
+      </div>
+      <div class="episode">
+        <div class="num">3</div>
+        <div class="time">24 Jan · 08:00 — 11:00</div>
+        <h4>The Boer guns open up</h4>
+        <p>By mid-morning the Boer artillery on Aloe Knoll, Conical Hill, and Twin Peaks had found the range. Shells and Mauser fire converged on the British position from three directions simultaneously. The Lancashire Fusiliers and Royal Lancaster Regiment suffered devastating casualties in the open trenches. Major General Woodgate was mortally wounded early in the fighting.</p>
+      </div>
+      <div class="episode">
+        <div class="num">4</div>
+        <div class="time">24 Jan · Midday</div>
+        <h4>Command collapses</h4>
+        <p>With Woodgate down, command passed uncertainly between several officers. Colonel Alec Thorneycroft was eventually confirmed in command — but the chain of communication between the summit, General Warren below, and General Buller further back was slow, confused, and at times contradictory. Reinforcements arrived piecemeal. Artillery support was limited by the steep terrain.</p>
+      </div>
+      <div class="episode">
+        <div class="num">5</div>
+        <div class="time">24 Jan · Late afternoon</div>
+        <h4>The decision</h4>
+        <p>By late afternoon, both sides were close to breaking. The Boers on the surrounding heights were suffering serious casualties and their commanders were considering withdrawal. <strong>But nobody on the British summit knew this.</strong> Thorneycroft — exhausted, isolated, and convinced the position was untenable — ordered the withdrawal at midnight without consulting Warren or Buller.</p>
+      </div>
+      <div class="episode">
+        <div class="num">6</div>
+        <div class="time">25 Jan · Dawn</div>
+        <h4>The empty hill</h4>
+        <p>When dawn broke on 25 January, two Boer burghers climbed cautiously to the summit of Spion Kop. They found it empty — abandoned in the night, littered with the dead. In one of the most painful ironies of the war, the British had surrendered a position both sides were prepared to lose. Ladysmith would not be relieved for another month.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- Turning Points -->
+<section data-reveal>
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">— Section 05 · Turning Points</div>
+      <h2>Where the battle was lost</h2>
+      <p class="lede">Six moments where small misreadings of ground, communication, and morale compounded into defeat.</p>
+    </div>
+
+    <div class="tp-grid">
+      <article class="tp-card">
+        <div class="tp-num">TP 01</div>
+        <h4>Inadequate reconnaissance</h4>
+        <p>The night climb was made without sufficient knowledge of the true summit geography. The British did not know they were occupying a basin below the true crest, surrounded by higher Boer positions.</p>
+        <div class="game-impact">In the game, poor reconnaissance limits your starting visibility and reduces your position strength from the first turn.</div>
+        <div class="badge-row"><span class="confidence verified">verified</span></div>
+      </article>
+      <article class="tp-card">
+        <div class="tp-num">TP 02</div>
+        <h4>Shallow entrenchment</h4>
+        <p>The rocky ground and the speed of occupation meant the British trenches were too shallow to offer real protection. Men were exposed to fire from multiple directions.</p>
+        <div class="game-impact">Units that don't entrench in the first turn suffer a morale penalty when Boer artillery opens up.</div>
+        <div class="badge-row"><span class="confidence verified">verified</span></div>
+      </article>
+      <article class="tp-card">
+        <div class="tp-num">TP 03</div>
+        <h4>Summit confusion</h4>
+        <p>Neither the commanders on the hill nor those below fully understood the topography they were fighting over. Orders and assessments reflected a misreading of the ground.</p>
+        <div class="game-impact">Fog of war in the game is historically grounded — your visibility is limited until you advance your units uphill.</div>
+        <div class="badge-row"><span class="confidence verified">verified</span></div>
+      </article>
+      <article class="tp-card">
+        <div class="tp-num">TP 04</div>
+        <h4>Communication failures</h4>
+        <p>The chain from Thorneycroft on the summit to Warren below to Buller further back was slow and unreliable. Critical information arrived too late or not at all.</p>
+        <div class="game-impact">Artillery support can only be called when units have line of sight — reflecting the real communication constraints on the day.</div>
+        <div class="badge-row"><span class="confidence probable">probable</span></div>
+      </article>
+      <article class="tp-card">
+        <div class="tp-num">TP 05</div>
+        <h4>Piecemeal reinforcement</h4>
+        <p>Reinforcements reached the summit in small groups throughout the day rather than as a coordinated force. This prevented a decisive counter-push.</p>
+        <div class="game-impact">Moving units one at a time mirrors the historical constraint — cavalry and infantry must be committed carefully.</div>
+        <div class="badge-row"><span class="confidence probable">probable</span></div>
+      </article>
+      <article class="tp-card">
+        <div class="tp-num">TP 06</div>
+        <h4>The midnight withdrawal</h4>
+        <p>Thorneycroft ordered the withdrawal without full knowledge of the Boer situation. The Boers were also close to breaking — a fact that would only become clear after the war.</p>
+        <div class="game-impact">Your objective is to hold the summit for six consecutive turns. The historical outcome is that the British did not.</div>
+        <div class="badge-row"><span class="confidence contested">contested</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- Commanders -->
+<section data-reveal>
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">— Section 06 · The Commanders</div>
+      <h2>The men who would decide the hill</h2>
+    </div>
+
+    <div class="commanders">
+      <article class="commander british">
+        <div class="portrait">RB</div>
+        <div>
+          <h4>Gen. Sir Redvers Buller VC</h4>
+          <div class="role">Commander · Natal Field Force</div>
+          <p>A decorated veteran of the Zulu War, Buller was under immense political pressure after the defeat at Colenso. Cautious and indecisive by temperament, he delegated operational command of the Spion Kop attack to Warren — with unclear results.</p>
+          <div style="display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
+            <span class="confidence probable">probable</span>
+            <span class="source-note" style="margin:0;font-size:0.78rem;border:0;padding:0;">Verified against secondary sources; NAAIRS verification recommended.</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="commander british">
+        <div class="portrait">CW</div>
+        <div>
+          <h4>Gen. Sir Charles Warren</h4>
+          <div class="role">Operational Commander</div>
+          <p>Warren commanded the flanking movement and the Spion Kop assault itself. His slow deliberation in the days before the assault frustrated Buller and his officers alike. His communication with Thorneycroft on the summit was limited and late.</p>
+          <div style="display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
+            <span class="confidence probable">probable</span>
+            <span class="source-note" style="margin:0;font-size:0.78rem;border:0;padding:0;">Further primary source verification recommended.</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="commander boer">
+        <div class="portrait">LB</div>
+        <div>
+          <h4>Commandant-Gen. Louis Botha</h4>
+          <div class="role">Boer Commander · Tugela Heights</div>
+          <p>At 37 years old, Botha was a tactician of remarkable instinct. He directed the Boer defence from the surrounding heights, concentrating artillery fire and maintaining pressure despite serious casualties. After the war he became the first Prime Minister of the Union of South Africa.</p>
+          <div style="display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
+            <span class="confidence verified">verified</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="commander boer">
+        <div class="portrait">AT</div>
+        <div>
+          <h4>Col. Alec Thorneycroft</h4>
+          <div class="role">Acting Commander · Spion Kop Summit</div>
+          <p>Thorneycroft took command after Woodgate was mortally wounded. He held the summit through the day under devastating fire, then ordered the withdrawal at midnight — a decision made without full knowledge of the Boer situation. The withdrawal is the hinge on which the battle's outcome turned.</p>
+          <div style="display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
+            <span class="confidence probable">probable</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- Forces & Casualties -->
+<section data-reveal>
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">— Section 07 · Forces & Casualties</div>
+      <h2>The cost of the day</h2>
+    </div>
+
+    <div class="forces">
+      <article class="force-card british">
+        <h4>British Empire <span style="color:var(--oxblood);font-size:0.78rem;font-family:var(--mono);letter-spacing:0.16em;text-transform:uppercase;">— Natal Field Force</span></h4>
+
+        <div class="force-stat">
+          <dt>Estimated strength</dt>
+          <span class="big">~1,700</span>
+          <span class="muted" style="font-size:0.86rem;">men on the summit · figures vary</span>
+        </div>
+
+        <div class="force-stat">
+          <dt>Units engaged</dt>
+          <span class="units">Lancashire Fusiliers · Royal Lancaster Regiment · South Lancashire Regiment · Imperial Light Infantry · Thorneycroft's Mounted Infantry · Royal Artillery</span>
+        </div>
+
+        <div class="force-stat">
+          <dt>Casualties — estimated</dt>
+          <div class="casualty-line">
+            <div><span class="label">Killed</span><strong>~243</strong></div>
+            <div><span class="label">Wounded / captured</span><strong>~1,250</strong></div>
+            <div><span class="label">Confidence</span><span class="confidence contested">contested</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="force-card boer">
+        <h4>Boer Republics <span style="color:var(--olive);font-size:0.78rem;font-family:var(--mono);letter-spacing:0.16em;text-transform:uppercase;">— Tugela Heights</span></h4>
+
+        <div class="force-stat">
+          <dt>Estimated strength</dt>
+          <span class="big">~4,000</span>
+          <span class="muted" style="font-size:0.86rem;">burghers across surrounding positions · figures vary</span>
+        </div>
+
+        <div class="force-stat">
+          <dt>Units engaged</dt>
+          <span class="units">Carolina Commando · Pretoria Commando · Vryheid Burgher Force · mounted commandos · Krupp artillery · Pom-Pom guns</span>
+        </div>
+
+        <div class="force-stat">
+          <dt>Casualties — estimated</dt>
+          <div class="casualty-line">
+            <div><span class="label">Killed</span><strong>~68</strong></div>
+            <div><span class="label">Wounded</span><strong>~150</strong></div>
+            <div><span class="label">Confidence</span><span class="confidence contested">contested</span></div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="qf-note" style="margin-top:2rem;">
+      <span class="confidence contested" style="flex-shrink:0;">contested</span>
+      <span>Casualty and strength figures vary significantly between sources. These are estimates based on available secondary sources. Final figures should be verified against NAAIRS/SAHO primary records before publication.</span>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- Alternate Decisions -->
+<section data-reveal>
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">— Section 08 · Could History Have Changed?</div>
+      <h2>Five decisions that could have changed everything</h2>
+      <p class="lede">These are not certainties — they are plausible educational scenarios based on historical analysis.</p>
+    </div>
+
+    <div class="alts">
+      <article class="alt-card">
+        <span class="num">ALT 01</span>
+        <h5>Better reconnaissance</h5>
+        <p>If the British had sent scouts ahead of the main climb to map the true summit geography, Woodgate's force might have entrenched on the actual crest — denying Boer guns the higher ground on three sides.</p>
+        <div class="plaus"><span class="confidence probable" style="margin-right:0.4rem;">probable</span> educational scenario</div>
+      </article>
+      <article class="alt-card">
+        <span class="num">ALT 02</span>
+        <h5>Deeper entrenchment</h5>
+        <p>If the first troops on the summit had spent two hours digging rather than consolidating position, the trenches might have offered meaningful cover when the artillery opened up at dawn.</p>
+        <div class="plaus"><span class="confidence probable" style="margin-right:0.4rem;">probable</span> educational scenario</div>
+      </article>
+      <article class="alt-card">
+        <span class="num">ALT 03</span>
+        <h5>Earlier summit clarity</h5>
+        <p>If Warren or Buller had dispatched a staff officer to physically assess the summit position in the first hours, the topographic misunderstanding might have been corrected before the Boer fire made movement impossible.</p>
+        <div class="plaus"><span class="confidence probable" style="margin-right:0.4rem;">probable</span> educational scenario</div>
+      </article>
+      <article class="alt-card">
+        <span class="num">ALT 04</span>
+        <h5>Coordinated reinforcement</h5>
+        <p>A single committed reinforcement — the full reserve rather than piecemeal groups — arriving by mid-morning might have stabilised the position before morale collapsed.</p>
+        <div class="plaus"><span class="confidence unknown" style="margin-right:0.4rem;">speculative</span> logistical constraints were severe</div>
+      </article>
+      <article class="alt-card">
+        <span class="num">ALT 05</span>
+        <h5>Holding until dawn</h5>
+        <p>Thorneycroft ordered the withdrawal at midnight. If he had held until daylight, he would have discovered the Boers were also preparing to withdraw. The hill might have been retained at relatively low additional cost.</p>
+        <div class="plaus"><span class="confidence contested" style="margin-right:0.4rem;">contested</span> Boer intentions at midnight are uncertain</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Three men who were there -->
+<section data-reveal>
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">— Section 09 · History Was Watching</div>
+      <h2>Three men who were there</h2>
+      <p class="lede">Three figures who would shape the twentieth century — each present at Spion Kop in a different role. None were there in a combat capacity. All of them left changed.</p>
+    </div>
+
+    <div class="threemen">
+      <article class="person">
+        <div class="image-slot" style="aspect-ratio:3/4;min-height:auto;width:140px;margin-bottom:1.2rem;">
+          <span class="label">Photo</span>
+          <span class="desc">Winston Churchill, c. 1900</span>
+        </div>
+        <h4>Winston Churchill</h4>
+        <div class="role">War correspondent · Morning Post</div>
+        <p>Churchill rode to Spion Kop and observed the fighting from close range. His despatches home — vivid, critical, politically charged — shaped British public opinion about the campaign and accelerated his own rise to prominence.</p>
+      </article>
+
+      <article class="person">
+        <div class="image-slot" style="aspect-ratio:3/4;min-height:auto;width:140px;margin-bottom:1.2rem;">
+          <span class="label">Photo</span>
+          <span class="desc">M. K. Gandhi, c. 1900</span>
+        </div>
+        <h4>Mahatma Gandhi</h4>
+        <div class="role">Leader · Indian Stretcher Bearer Corps</div>
+        <p>Gandhi organised and led the Indian Ambulance Corps at Spion Kop, carrying wounded men down the steep slopes under fire. He was later decorated for his service. The experience shaped his understanding of Empire, courage, and sacrifice.</p>
+      </article>
+
+      <article class="person">
+        <div class="image-slot" style="aspect-ratio:3/4;min-height:auto;width:140px;margin-bottom:1.2rem;">
+          <span class="label">Photo</span>
+          <span class="desc">Louis Botha, c. 1900</span>
+        </div>
+        <h4>Louis Botha</h4>
+        <div class="role">Commandant-General · Boer Forces</div>
+        <p>The man who directed the Boer defence of Spion Kop went on to lead the Boer forces through the guerrilla war, negotiate the Treaty of Vereeniging, and become the first Prime Minister of the Union of South Africa in 1910.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<hr class="section-divider"/>
+
+<!-- Play CTA -->
+<section class="command play-cta">
+  <div class="contour-bg"></div>
+  <div class="container">
+    <div class="eyebrow" style="color:var(--gold-light);opacity:0.9;">— The bridge</div>
+    <h2>You have seen the decisions.<br/>Now face the same uncertainty.</h2>
+    <p class="lede">
+      Poor visibility. Strained communication. Exposed positions. Rising pressure from three sides. Can you do better — or will the hill defeat you too?
+    </p>
+    <a href="spion-kop-play.html" class="btn btn-primary btn-lg">Take Command →</a>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<!-- Sources -->
+<section data-reveal>
+  <div class="container">
+    <div class="sources-panel">
+      <div class="eyebrow" style="margin-bottom:0.4rem;">— Section 10 · Sources & Methodology</div>
+      <h3>How we built this account</h3>
+      <ul>
+        <li>South African History Online (SAHO)</li>
+        <li>NARSSA / NAAIRS — official SA archival verification route</li>
+        <li>AngloBoerWar.com</li>
+        <li>Military History Journal / SAMHS</li>
+        <li>Pakenham, Thomas. <em>The Boer War</em>. Weidenfeld & Nicolson, 1979.</li>
+        <li>Churchill, Winston. <em>London to Ladysmith via Pretoria</em>. 1900.</li>
+        <li>Doyle, Arthur Conan. <em>The Great Boer War</em>. 1900.</li>
+        <li>Battlefields Route resources</li>
+        <li>Historical maps: Stanford Africana / Canadian War Museum collections</li>
+      </ul>
+      <p class="muted" style="margin-top:1.5rem;font-size:0.88rem;font-style:italic;">
+        Detailed source-linked citations and NAAIRS verification to be added as research progresses.
+      </p>
+      <a href="sources.html" class="btn btn-secondary btn-sm" style="margin-top:1rem;">View full methodology →</a>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="partials.js"></script>
+</body>
+</html>

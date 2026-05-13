@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Battle of Spion Kop — Full History | Command The Past</title>
+<meta name="description" content="The complete story of the Battle of Spion Kop — terrain, commanders, turning points, and the midnight decision that handed the hill back to Botha. Read before you play." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Cormorant+Garamond:wght@400;500;600&family=EB+Garamond:wght@400;500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .learn-hero {
+    padding: 5rem 0 4rem;
+    min-height: 56vh;
+    display: flex; align-items: flex-end;
+  }
+  .learn-hero h1 {
+    font-size: clamp(2.6rem, 6vw, 4.6rem);
+    line-height: 1.02;
+    margin-bottom: 0.6rem;
+  }
+  .learn-hero .subtitle {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.2rem;
+    color: rgba(244,239,227,0.7);
+  }
+  .crumbs {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    opacity: 0.7;
+    margin-bottom: 2rem;
+  }
+
+  .longread {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+  .longread > section {
+    padding: 4rem 0;
+    border-bottom: 1px solid rgba(139,105,20,0.18);
+  }
+  .longread > section:last-child { border-bottom: 0; }
+  .longread .num {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brass-deep);
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+  .longread h2 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    line-height: 1.1;
+    margin-bottom: 1.6rem;
+    letter-spacing: -0.01em;
+  }
+  .longread h3 {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    margin: 2.5rem 0 0.8rem;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--brass-deep);
+  }
+  .longread p {
+    font-size: 1.08rem;
+    line-height: 1.78;
+    color: var(--ink);
+    margin: 0 0 1.4em;
+    text-wrap: pretty;
+  }
+  .longread .dropcap::first-letter {
+    font-family: var(--serif);
+    font-size: 4.2rem;
+    line-height: 0.9;
+    float: left;
+    padding: 0.4rem 0.7rem 0 0;
+    color: var(--brass-deep);
+    font-weight: 500;
+  }
+  .longread blockquote {
+    margin: 2.5rem 0;
+    padding: 0 0 0 1.5rem;
+    border-left: 3px solid var(--brass);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.3rem;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .longread blockquote cite {
+    display: block;
+    margin-top: 0.7rem;
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-style: normal;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .longread .pullquote {
+    font-family: var(--serif);
+    font-size: 1.7rem;
+    line-height: 1.3;
+    color: var(--brass-deep);
+    margin: 3rem 0;
+    padding: 2rem 0;
+    border-top: 1px solid rgba(139,105,20,0.25);
+    border-bottom: 1px solid rgba(139,105,20,0.25);
+    text-align: center;
+  }
+  .longread figure {
+    margin: 2.5rem 0;
+  }
+  .longread figcaption {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.8rem;
+    text-align: center;
+  }
+
+  .commander-prose h3 {
+    color: var(--ink);
+    border-top: 1px solid rgba(139,105,20,0.18);
+    padding-top: 1.5rem;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+  }
+  .commander-prose h3 .tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .person-prose {
+    padding-left: 1rem;
+    border-left: 2px solid var(--brass);
+  }
+  .person-prose h3 {
+    color: var(--ink);
+    margin-top: 2.5rem;
+  }
+  .person-prose h3 .role {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.3rem;
+    font-weight: 400;
+  }
+
+  .terrain-panel {
+    max-width: 1080px;
+    margin: 3rem auto;
+    padding: 0 var(--gutter);
+  }
+  .terrain-panel svg {
+    width: 100%;
+    height: auto;
+    background: var(--paper);
+    border: 1px solid rgba(139,105,20,0.25);
+    padding: 1.5rem;
+  }
+  .terrain-cap {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 0.8rem;
+  }
+
+  .reading-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 1.5rem 0;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(139,105,20,0.18);
+  }
+
+  .play-cta {
+    text-align: center;
+    padding: 7rem 0;
+  }
+  .play-cta h2 { max-width: 22ch; margin: 0 auto 1.4rem; }
+</style>
+</head>
+<body data-screen-label="04 Spion Kop Learn">
+
+<div id="site-header"></div>
+
+<!-- Hero -->
+<section class="command learn-hero">
+  <div class="contour-bg"></div>
+  <div class="container">
+    <div class="crumbs">Home / Battles / Spion Kop / Learn</div>
+    <h1>The Battle of Spion Kop</h1>
+    <p class="subtitle">A full historical account — 23–24 January 1900</p>
+  </div>
+</section>
+
+<div class="longread">
+
+  <div class="reading-meta">
+    <span>~18 min read</span>
+    <span>·</span>
+    <span>8 chapters</span>
+    <span>·</span>
+    <span>1,700 men, one hill, one decision</span>
+  </div>
+
+  <section>
+    <span class="num">Chapter 01</span>
+    <h2>Black Week and the road to Spion Kop</h2>
+    <p class="dropcap">By the close of 1899, the British Empire was in crisis on the South African veldt. In the space of a single catastrophic week in December — a period the British press would call Black Week — three separate British forces had been defeated by Boer commandos at Stormberg, Magersfontein, and Colenso. The defeats were shocking in scale and humiliation: nearly 3,000 casualties, ten artillery guns captured at Colenso alone, and the news reaching London with brutal speed via telegraph.</p>
+
+    <p>The siege of Ladysmith had been grinding on since November. Some 12,000 British and colonial troops — soldiers, civilians, and the sick — were trapped inside the Natal town, surrounded by Boer artillery and short of food, medicine, and ammunition. General Sir Redvers Buller, the commander of the Natal Field Force, had failed to break through at Colenso in December. He came under intense political and public pressure. The relief of Ladysmith was not simply a military objective — it was an imperial necessity.</p>
+
+    <p>In January 1900, Buller tried again. He moved his force west, toward the Tugela Heights — a long ridge of kopjes and peaks that blocked the road north to Ladysmith. Among those peaks, rising steeply from the river valley, was a prominent flat-topped hill the Boers called <em>Spioenkop</em>. <strong>Spy Hill.</strong> Buller believed that if he could put troops on that summit, he could dominate the Boer position and force open the road. He was right about the hill's importance. He was wrong about almost everything else.</p>
+  </section>
+
+  <section>
+    <span class="num">Chapter 02</span>
+    <h2>The ground that would kill them</h2>
+    <p>Spion Kop rises roughly 430 metres above the Tugela River. From the valley floor, looking up at the silhouette against the sky, it appears to command everything — a flat summit that seems to offer sight lines across the entire Boer position. <em>This appearance is deceptive.</em></p>
+
+    <p class="pullquote">An army on the main summit would not look down on the enemy. It would be looked down upon.</p>
+
+    <p>The true summit of Spion Kop is not a single flat plateau. It is a series of ridges and undulations, with the true crest set back from the obvious skyline visible from below. The ground around it — Aloe Knoll, Conical Hill, Twin Peaks — is higher still, or at least as high, and commands the main summit from three sides.</p>
+
+    <p>The slopes are rocky, steep, and irregular. The soil, where it exists, is thin and hard — difficult to entrench quickly. The hill is hot in summer, exposed to wind, and in January 1900 it was also wrapped in the mist and drizzle of a Natal night. It was into this ground — unseen, unmapped in detail, misunderstood — that 1,700 British soldiers climbed in the small hours of 24 January.</p>
+  </section>
+</div>
+
+<!-- Terrain panel (full width) -->
+<div class="terrain-panel">
+  <svg viewBox="0 0 1080 480" role="img" aria-label="Cross-section of Spion Kop and surrounding heights">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#e9e2d2"/>
+        <stop offset="100%" stop-color="#f4efe3"/>
+      </linearGradient>
+    </defs>
+    <rect width="1080" height="480" fill="url(#sky)"/>
+
+    <!-- Cross-section profile -->
+    <path d="M0,400 L80,380 L150,350 L220,300 L260,280 Q300,225 340,210 L380,200 Q420,205 460,225 L500,260 L560,290 L600,260 L640,200 L680,150 L720,140 L760,170 L800,210 L860,260 L920,290 L1000,310 L1080,330 L1080,480 L0,480 Z"
+          fill="#a89a72" opacity="0.55"/>
+    <!-- Sky line -->
+    <path d="M0,400 L80,380 L150,350 L220,300 L260,280 Q300,225 340,210 L380,200 Q420,205 460,225 L500,260 L560,290 L600,260 L640,200 L680,150 L720,140 L760,170 L800,210 L860,260 L920,290 L1000,310 L1080,330"
+          fill="none" stroke="#5e6756" stroke-width="1.5"/>
+
+    <!-- Tugela River at base -->
+    <path d="M0,450 L1080,440" stroke="#6f8a9a" stroke-width="6" opacity="0.7"/>
+    <text x="50" y="460" font-family="Playfair Display" font-style="italic" font-size="13" fill="#5d5a54">Tugela River — 0m</text>
+
+    <!-- British position -->
+    <g transform="translate(440,220)">
+      <rect x="-25" y="0" width="50" height="6" fill="#8b1a1a" opacity="0.8"/>
+      <text x="0" y="22" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.5" fill="#8b1a1a">BRITISH · 430m</text>
+      <text x="0" y="-6" text-anchor="middle" font-family="Playfair Display" font-size="13" fill="#2b2a28">Spion Kop "summit"</text>
+    </g>
+
+    <!-- Conical Hill -->
+    <g transform="translate(680,150)">
+      <rect x="-12" y="0" width="24" height="4" fill="#1a4a1a"/>
+      <text x="0" y="-6" text-anchor="middle" font-family="Playfair Display" font-size="13" fill="#2b2a28">Conical Hill</text>
+      <text x="0" y="18" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.5" fill="#1a4a1a">BOER · 480m</text>
+    </g>
+
+    <!-- Twin Peaks -->
+    <g transform="translate(860,260)">
+      <rect x="-10" y="0" width="20" height="4" fill="#1a4a1a"/>
+      <text x="0" y="-6" text-anchor="middle" font-family="Playfair Display" font-size="13" fill="#2b2a28">Twin Peaks</text>
+      <text x="0" y="18" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.5" fill="#1a4a1a">BOER · 460m</text>
+    </g>
+
+    <!-- Aloe Knoll -->
+    <g transform="translate(560,290)">
+      <rect x="-8" y="0" width="16" height="4" fill="#1a4a1a"/>
+      <text x="0" y="-6" text-anchor="middle" font-family="Playfair Display" font-size="12" fill="#2b2a28">Aloe Knoll</text>
+      <text x="0" y="18" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.5" fill="#1a4a1a">BOER · 445m</text>
+    </g>
+
+    <!-- Fire arrows -->
+    <g stroke="#1a4a1a" stroke-width="1.4" fill="none" stroke-dasharray="4 3" opacity="0.8">
+      <path d="M680,160 Q580,180 460,220" marker-end="url(#fireArrow)"/>
+      <path d="M860,266 Q650,250 470,225" marker-end="url(#fireArrow)"/>
+      <path d="M560,295 Q510,260 465,228" marker-end="url(#fireArrow)"/>
+    </g>
+    <defs>
+      <marker id="fireArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+        <path d="M0,0 L10,5 L0,10 Z" fill="#1a4a1a"/>
+      </marker>
+    </defs>
+
+    <!-- Elevation guides -->
+    <g font-family="JetBrains Mono, monospace" font-size="9" fill="#8a8680" stroke="none">
+      <line x1="20" y1="200" x2="60" y2="200" stroke="#8a8680" stroke-width="0.4" stroke-dasharray="2 2"/>
+      <text x="22" y="195">500m</text>
+      <line x1="20" y1="290" x2="60" y2="290" stroke="#8a8680" stroke-width="0.4" stroke-dasharray="2 2"/>
+      <text x="22" y="285">350m</text>
+      <line x1="20" y1="380" x2="60" y2="380" stroke="#8a8680" stroke-width="0.4" stroke-dasharray="2 2"/>
+      <text x="22" y="375">200m</text>
+    </g>
+
+    <!-- Title -->
+    <text x="540" y="40" text-anchor="middle" font-family="Playfair Display" font-size="16" fill="#2b2a28">East–West cross-section · Tugela Heights</text>
+    <text x="540" y="58" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.5" fill="#5d5a54">SHOWING WHY THE BRITISH POSITION WAS OVERLOOKED ON THREE SIDES</text>
+  </svg>
+  <p class="terrain-cap">Topographic cross-section — Aloe Knoll, Conical Hill, and Twin Peaks command the British position. Drawn from accounts; not to exact scale.</p>
+</div>
+
+<div class="longread">
+  <section class="commander-prose">
+    <span class="num">Chapter 03</span>
+    <h2>The men who would decide the hill</h2>
+    <p>Five men, on two sides of the same ground, carried the weight of the day. None of them controlled it cleanly. None of them came away from it untouched.</p>
+
+    <h3>Sir Redvers Buller <span class="tag">— British, Commander Natal Field Force</span></h3>
+    <p>Buller was a paradox of his era — a genuinely brave soldier who had won the Victoria Cross in the Zulu War, and a general who seemed to lose his nerve at the operational level. He had already been relieved of overall South African command before Spion Kop, following Colenso. Now commanding only in Natal, he delegated the Spion Kop assault to General Warren — a decision whose ambiguity in execution contributed directly to what followed. Buller watched from below, intervened sporadically by heliograph, and ultimately bore the weight of the outcome.</p>
+
+    <h3>Gen. Sir Charles Warren <span class="tag">— British, Operational Commander</span></h3>
+    <p>Warren moved with a deliberateness that exasperated his superiors. He took several days preparing the flanking movement before committing to the Spion Kop assault, losing whatever element of surprise remained. During the battle itself, his communication with Thorneycroft on the summit was slow and at times contradictory — orders arrived after conditions had changed, and critical information travelled too slowly in both directions.</p>
+
+    <h3>Maj. Gen. Edward Woodgate <span class="tag">— British, Summit Commander</span></h3>
+    <p>Woodgate commanded the night assault on the summit and led his men up the slope with discipline and quiet efficiency. He was mortally wounded early on the morning of 24 January, before the full weight of the Boer response had developed. His wounding removed the senior British commander from the summit at the worst possible moment.</p>
+
+    <h3>Col. Alec Thorneycroft <span class="tag">— British, Acting Summit Commander</span></h3>
+    <p>Thorneycroft holds the most complex place in the history of Spion Kop. He fought the battle with conspicuous personal courage — a large, physically imposing man who steadied the line repeatedly during the worst of the fire. And it was Thorneycroft who ordered the withdrawal at midnight. He made that decision without full knowledge of the Boer situation, without clear orders from Warren, and under conditions of extreme exhaustion and moral pressure. <strong>Whether the decision was right or wrong, it ended the battle.</strong></p>
+
+    <h3>Louis Botha <span class="tag">— Boer, Commandant-General</span></h3>
+    <p>Botha was 37 years old and already the most capable Boer commander in the field. He directed the defence of the Tugela Heights with energy and tactical intelligence — concentrating artillery fire on the exposed summit, maintaining pressure despite Boer casualties that were, proportionally, also serious.</p>
+    <p>In the afternoon of 24 January, Botha was himself close to ordering a withdrawal from the surrounding heights. The two sides were, at that moment, equally close to breaking. <strong>Botha held on. Thorneycroft did not.</strong> That, in one sentence, is the Battle of Spion Kop.</p>
+  </section>
+
+  <section>
+    <span class="num">Chapter 04</span>
+    <h2>The climb</h2>
+    <p>At 9pm on 23 January 1900, Woodgate's force began the climb. They moved in silence — no talking, no lights, rifle bolts eased. The mist was thick enough to muffle sound and obscure landmarks. The guides knew the lower slopes reasonably well. The upper slopes were less certain.</p>
+
+    <p>At around 3am, they reached what they believed was the summit. A small Boer picket was surprised and overwhelmed with little noise. Woodgate sent back a heliograph message that has since become one of the more painful documents of the war:</p>
+
+    <blockquote>
+      "We are on top of the hill."
+      <cite>Maj. Gen. Edward Woodgate · heliograph dispatch, 03:00, 24 January 1900</cite>
+    </blockquote>
+
+    <p>They were on <em>a</em> top of the hill. They were not on the commanding crest. They began to entrench in a shallow basin that offered the sky in every direction — and protection from almost none of it.</p>
+
+    <p>The trenches they dug that night were, by necessity, shallow. The ground was rocky. They did not know how much time they had. They worked in darkness, not knowing what the daylight would reveal. <strong>When the mist lifted, it revealed everything.</strong></p>
+  </section>
+
+  <section>
+    <span class="num">Chapter 05</span>
+    <h2>The acre of massacre</h2>
+    <p>At around 7am, the mist began to clear. The Boer gunners on Aloe Knoll, Conical Hill, and Twin Peaks — who had known for hours that British troops were on the summit below them — found their range quickly. Shells from the Krupp artillery and the quick-firing Pom-Pom guns converged on the shallow British trenches from three sides simultaneously.</p>
+
+    <p>The Lancashire Fusiliers took the worst of it early. Men in the open trenches had almost no protection from plunging fire from the higher ground. Moving was as dangerous as staying — the slopes below were covered by Mauser rifles. The wounded could not be easily evacuated. The dead lay where they fell.</p>
+
+    <p class="pullquote">By mid-morning, the British position on Spion Kop had become what a correspondent would later describe as "an acre of massacre".</p>
+
+    <p>The ground was small, the exposure total, and the fire unrelenting. And yet the men held. Through the morning and into the afternoon, battered, confused, increasingly leaderless, they held the summit.</p>
+  </section>
+
+  <section>
+    <span class="num">Chapter 06</span>
+    <h2>Midnight on the hill</h2>
+    <p>By late afternoon on 24 January, both sides had reached the edge of what they could bear. The Boers on the surrounding heights had taken serious casualties. Botha himself was considering whether to withdraw from positions that were proving more costly than anticipated. On the British summit, Thorneycroft — now in command, unconfirmed for much of the day, and receiving confused and contradictory messages from below — was reaching his own breaking point.</p>
+
+    <p>At midnight, he ordered the withdrawal. The message he sent down the hill has a finality to it that still resonates:</p>
+
+    <blockquote>
+      "Better six battalions safely off the hill than a forced disgraceful surrender in the morning."
+      <cite>Col. A. Thorneycroft · summit dispatch, midnight, 24/25 January 1900</cite>
+    </blockquote>
+
+    <p>He led his men down in the darkness — past the wounded who could not be moved, past the dead who would not leave.</p>
+
+    <p>What Thorneycroft did not know — what no one on the British side knew — was that the Boers were also close to abandoning their positions. Botha's men on Aloe Knoll were running short of ammunition. The morale on the Boer ridges was fragile. A British force that held until dawn might have found the heights thinning out, the guns falling silent. <em>Might have.</em> The word "might" carries its full weight here.</p>
+
+    <p>When two Boer scouts climbed cautiously to the British summit at first light on 25 January, they found empty trenches, discarded equipment, and the dead of both sides. They sent word back: the British were gone. <strong>The hill was theirs.</strong></p>
+  </section>
+
+  <section>
+    <span class="num">Chapter 07</span>
+    <h2>What Spion Kop left behind</h2>
+    <p>The British counted roughly 243 dead and over 1,000 wounded and missing on Spion Kop — the bloodiest single day of the entire Anglo-Boer War for the British forces. The Boers lost an estimated 68 killed and around 150 wounded. <strong>Ladysmith was not relieved until 28 February 1900</strong>, following a third breakthrough attempt.</p>
+
+    <p>The battle entered the British national consciousness with unusual depth. The terraced standing areas at football grounds across northern England — Liverpool's Kop at Anfield most famously, but also Sheffield United, Wolverhampton, and others — took their name from Spion Kop. The men who built those terraces, and the men who stood on them, often had fathers or uncles who had stood on the real hill. <em>The name carried weight.</em></p>
+
+    <p>For South Africa, Spion Kop confirmed what the Boers already knew: that terrain, improvisation, and accurate rifle fire could hold off a numerically superior conventional army. For the British Army, it was a lesson about reconnaissance, communication, and the command of difficult ground that would take years to fully absorb.</p>
+
+    <p>Churchill's dispatches home made the battle famous in real time. Gandhi's ambulance corps, working the slopes under fire, contributed to his understanding of service and sacrifice that would shape his later life. Botha, the man who held the heights, would sit across a negotiating table from British generals two years later — and then lead the country they had fought over.</p>
+  </section>
+
+  <section class="person-prose">
+    <span class="num">Chapter 08</span>
+    <h2>Three futures on one hill</h2>
+    <p>Three men were present at Spion Kop who would each, in different ways, shape the twentieth century. None of them was there in a combat role. All of them left changed.</p>
+
+    <h3>Winston Churchill <span class="role">War correspondent · Morning Post</span></h3>
+    <p>Churchill had already escaped from Boer captivity in Pretoria by the time Spion Kop was fought — a story that had made him famous across the Empire. Now working as a correspondent for the <em>Morning Post</em>, he rode to the battle and observed the fighting from close range. His despatches were vivid, critical, and politically acute. He admired the Boer fighting ability without concealing his frustration at British command failures. The experience sharpened the military instincts he would exercise at the highest level forty years later.</p>
+
+    <h3>Mahatma Gandhi <span class="role">Leader · Indian Stretcher Bearer Corps</span></h3>
+    <p>Gandhi was 30 years old and living in South Africa when the war began. He organised and led the Indian Ambulance Corps — a volunteer stretcher bearer unit — and was present at Spion Kop, carrying wounded men down the steep slopes under fire. He received the War Medal. He later wrote that the experience taught him something about courage, about the cost of empire, and about the relationship between service and political consciousness. <em>The trajectory from Spion Kop to Dandi is not a straight line — but it is a real one.</em></p>
+
+    <h3>Louis Botha <span class="role">Commander → Prime Minister</span></h3>
+    <p>Botha directed the defence of Spion Kop from the surrounding heights. He was 37. He was already the most capable general the Boers had. He would go on to command Boer forces through the guerrilla phase of the war, negotiate the Treaty of Vereeniging in 1902, and become the first Prime Minister of the Union of South Africa in 1910. <strong>The man the British were trying to dislodge from his kopje on 24 January 1900 became the man who led the country they created.</strong></p>
+  </section>
+
+</div>
+
+<!-- Play CTA -->
+<section class="command play-cta">
+  <div class="contour-bg"></div>
+  <div class="container">
+    <div class="eyebrow" style="color:var(--gold-light);opacity:0.9;">— The bridge to the game</div>
+    <h2>You have read the hill.<br/>Now command it.</h2>
+    <p class="lede" style="max-width:56ch;margin:0 auto 2.4rem;">
+      The fog is real. The communication failures are real. The Boer guns are on the heights. Your objective is simple — hold the summit. History says you won't. Prove it wrong.
+    </p>
+    <a href="spion-kop-play.html" class="btn btn-primary btn-lg">Take Command →</a>
+    <p style="margin-top:2rem;font-family:var(--mono);font-size:0.74rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(200,185,122,0.6);">
+      ← <a href="spion-kop.html" style="color:inherit;text-decoration:underline;text-underline-offset:4px;">Back to Spion Kop</a>
+    </p>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="partials.js"></script>
+</body>
+</html>
