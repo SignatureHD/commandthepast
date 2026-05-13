@@ -27,7 +27,7 @@
             <li><a href="${n.href}" class="${n.match.includes(here) ? 'active' : ''}">${n.label}</a></li>
           `).join('')}
         </ul>
-        <a class="btn btn-primary btn-sm nav-cta" href="spion-kop-play.html">Play Spion Kop →</a>
+        <a class="btn btn-primary btn-sm nav-cta" href="spion-kop.html">Play Spion Kop →</a>
       </nav>
     </header>
   `;
